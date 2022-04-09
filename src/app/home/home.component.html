@@ -1,21 +1,17 @@
-<nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
-  <a class="navbar-brand col-sm-3 col-md-2 mr-0" >Live Spaces</a>
-  <input class="form-control form-control-dark w-100" type="text" placeholder="Search" aria-label="Search" [(ngModel)]="nameSearch">
+<!--NvaBar-->
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <h1 id="navhead" class="navbar-brand col-sm-3 col-md-2 mr-0" >Live Spaces</h1>
+  <input class="form-control form-control-dark w-73" type="text" placeholder="Search" aria-label="Search" [(ngModel)]="nameSearch">
   <ul class="navbar-nav px-3">
       <li class="nav-item text-nowrap">
-          <a class="nav-link" >Search</a>
+          <button class="btn-primary">Search</button>
       </li>
   </ul>
 </nav>
-<div class="container">
-    <div class="row">
-        <div class="col-md-12">
-            <h1>Live Spaces </h1>
-        </div>
-    </div>
-    </div>
-    <mat-tab-group>
-      <mat-tab  label="24h Trending" (click)="allCards()">
+<!--NvaBar-->
+
+<mat-tab-group>
+    <mat-tab  label="24h Trending">
            <!-- Topic Cards -->
     <div id="cards_landscape_wrap-2">
       <div class="container">
@@ -57,12 +53,16 @@
           </div>
       </div>
   </div>
+   <!-- Topic Cards -->
       </mat-tab>
-        <mat-tab label="Latest Shows" (click)="action()">
+
+
+       <!-- New Tab -->
+        <mat-tab label="Latest Shows">
           <div id="cards_landscape_wrap-2">
             <div class="container">
                 <div class="row">
-                    <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3" *ngFor="let i of showData">
+                    <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3" *ngFor="let i of showData | filter:nameSearch">
                         <ng-template  [ngIf]="i.year<='2021'">
                           <a>
                             <div class="card-flyer">
@@ -79,21 +79,19 @@
                                           <p class="PG">{{i.action}} </p>
                                         </div>
                                         <mat-card-actions>
-                                            <button mat-button>
-                                                <mat-icon>thumb_up</mat-icon>
-                                            </button>
-                                            <button mat-button>
-                                                <mat-icon>thumb_down</mat-icon>
-                                            </button>
+                                           
                                         </mat-card-actions>
                                     </div>
                                     <mat-card-footer>
-                                      <span class="material-icons yellow-color">star_border </span>
-                                      <span class="material-icons yellow-color">star_border </span>
-                                      <span class="material-icons yellow-color">star_border </span>
-                                      <span class="material-icons yellow-color">star_border </span>
-                                      <span class="material-icons yellow-color">star_border </span>
-                                    </mat-card-footer>
+                                        <button mat-button (click)="incCount()">
+                                          <mat-icon>thumb_up</mat-icon>
+                                      </button>
+                                      <button mat-button (click)="desCount()">
+                                          <mat-icon>thumb_down</mat-icon>
+                                      </button>
+                                      <ngb-rating [max]="5" [(rate)]="starRating" [readonly]="false"></ngb-rating>
+        
+                                      </mat-card-footer>
                                   
                                 </div>
                             </div>
@@ -104,11 +102,15 @@
             </div>
         </div>
       </mat-tab>
+
+
+        
+       <!-- New Tab -->
         <mat-tab label="Most Popular"> 
           <div id="cards_landscape_wrap-2">
             <div class="container">
                 <div class="row">
-                    <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3" *ngFor="let i of showData">
+                    <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3" *ngFor="let i of showData | filter:nameSearch">
                        <ng-template [ngIf]="i.stars>=8">
                         <a>
                           <div class="card-flyer">
@@ -125,20 +127,18 @@
                                         <p class="PG">{{i.action}} </p>
                                       </div>
                                       <mat-card-actions>
-                                          <button mat-button>
-                                              <mat-icon>thumb_up</mat-icon>
-                                          </button>
-                                          <button mat-button>
-                                              <mat-icon>thumb_down</mat-icon>
-                                          </button>
+                                         
                                       </mat-card-actions>
                                   </div>
                                   <mat-card-footer>
-                                    <span class="material-icons yellow-color">star_border </span>
-                                    <span class="material-icons yellow-color">star_border </span>
-                                    <span class="material-icons yellow-color">star_border </span>
-                                    <span class="material-icons yellow-color">star_border </span>
-                                    <span class="material-icons yellow-color">star_border </span>
+                                    <button mat-button (click)="incCount()">
+                                      <mat-icon>thumb_up</mat-icon>
+                                  </button>
+                                  <button mat-button (click)="desCount()">
+                                      <mat-icon>thumb_down</mat-icon>
+                                  </button>
+                                  <ngb-rating [max]="5" [(rate)]="starRating" [readonly]="false"></ngb-rating>
+    
                                   </mat-card-footer>
                                 
                               </div>
@@ -150,11 +150,15 @@
             </div>
         </div>
         </mat-tab>
+
+
+          
+       <!-- New Tab -->
         <mat-tab label="Old Movies"> 
           <div id="cards_landscape_wrap-2">
             <div class="container">
                 <div class="row">
-                    <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3" *ngFor="let i of showData">
+                    <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3" *ngFor="let i of showData | filter:nameSearch">
                         <ng-template  [ngIf]="i.year<='2015'">
                           <a>
                             <div class="card-flyer">
@@ -171,21 +175,19 @@
                                           <p class="PG">{{i.action}} </p>
                                         </div>
                                         <mat-card-actions>
-                                            <button mat-button>
-                                                <mat-icon>thumb_up</mat-icon>
-                                            </button>
-                                            <button mat-button>
-                                                <mat-icon>thumb_down</mat-icon>
-                                            </button>
+                                          
                                         </mat-card-actions>
                                     </div>
                                     <mat-card-footer>
-                                      <span class="material-icons yellow-color">star_border </span>
-                                      <span class="material-icons yellow-color">star_border </span>
-                                      <span class="material-icons yellow-color">star_border </span>
-                                      <span class="material-icons yellow-color">star_border </span>
-                                      <span class="material-icons yellow-color">star_border </span>
-                                    </mat-card-footer>
+                                        <button mat-button (click)="incCount()">
+                                          <mat-icon>thumb_up</mat-icon>
+                                      </button>
+                                      <button mat-button (click)="desCount()">
+                                          <mat-icon>thumb_down</mat-icon>
+                                      </button>
+                                      <ngb-rating [max]="5" [(rate)]="starRating" [readonly]="false"></ngb-rating>
+        
+                                      </mat-card-footer>
                                   
                                 </div>
                             </div>
@@ -195,8 +197,10 @@
                 </div>
             </div>
         </div>
-        </mat-tab>
-      </mat-tab-group>
+    </mat-tab>
+
+        
+</mat-tab-group>
 
 
      

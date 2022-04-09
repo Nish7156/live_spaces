@@ -19,9 +19,6 @@ export class HomeComponent implements OnInit {
   nameSearch:any="";
   public starRating = 0; 
 
-
- imageAddress='resources/img/new.png';
-
  constructor(private http:HttpClient,private router: Router,) { }
 
   ngOnInit(): void {
@@ -43,18 +40,6 @@ export class HomeComponent implements OnInit {
     this.starRating -= 1;
     console.log(this.starRating);
   }
-  showdate(){
-    
-  }
 
-  allCards()
-{
-  console.log("all cards");
-}
-  action(){
-
-    alert("action");
-  
-
-}
+ 
 }
